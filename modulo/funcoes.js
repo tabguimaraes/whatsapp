@@ -11,8 +11,8 @@ const message = { status: true, status_code: 200, development: "Tiago Guimarães
 let usuario;
 
 // Função para selecionar o usuário pelo número do telefone e salvar os dados dentro da variável 'usuário'
-function selecionarUsuarioPeloTelefone(number) {
-  usuario = dataJSON.contatos["whats-users"].find((item) => item.number === number);
+function selecionarUsuarioPeloTelefone(userNumber) {
+  usuario = dataJSON.contatos["whats-users"].find((item) => item.number === userNumber);
   return usuario;
 }
 
@@ -27,9 +27,9 @@ function listarTodosUsuarios() {
   }
 }
 
-function listarDadosDaConta(number) {
+function listarDadosDaConta(userNumber) {
   try {
-    selecionarUsuarioPeloTelefone(number);
+    selecionarUsuarioPeloTelefone(userNumber);
     message.data.push({
       nome: usuario.account,
       nickname: usuario.nickname,
@@ -46,9 +46,9 @@ function listarDadosDaConta(number) {
   }
 }
 
-function listarDadosDeContato(number) {
+function listarDadosDeContato(userNumber) {
   try {
-    selecionarUsuarioPeloTelefone(number);
+    selecionarUsuarioPeloTelefone(userNumber);
 
     usuario.contacts.forEach((item) => {
       message.data.push({ name: item.name, description: item.description, image: item.image });
@@ -60,9 +60,9 @@ function listarDadosDeContato(number) {
   }
 }
 
-function listarTodasMensagens(number) {
+function listarTodasMensagens(userNumber) {
   try {
-    selecionarUsuarioPeloTelefone(number);
+    selecionarUsuarioPeloTelefone(userNumber);
     usuario.contacts.forEach((item) => {
       message.data.push({ contato: item.name, mensagens: item.messages });
     });
@@ -73,7 +73,7 @@ function listarTodasMensagens(number) {
   }
 }
 
-function listarConversasDeUsuarioComUmContato(number, query) {}
+function listarConversasDeUsuarioComUmContato(userNumber, query) {}
 
 module.exports = {
   listarTodosUsuarios,
