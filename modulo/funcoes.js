@@ -48,8 +48,7 @@ function listarDadosDaConta(number) {
 
 function listarDadosDeContato(number) {
   try {
-    message.data = [];
-    usuario = dataJSON.contatos["whats-users"].find((item) => item.number === number);
+    selecionarUsuarioPeloTelefone(number);
 
     usuario.contacts.forEach((item) => {
       message.data.push({ name: item.name, description: item.description, image: item.image });
@@ -65,7 +64,7 @@ function listarTodasMensagens(number) {
   try {
     selecionarUsuarioPeloTelefone(number);
     usuario.contacts.forEach((item) => {
-      message.data.push({ contato: item.name }, { mensagens: item.messages });
+      message.data.push({ contato: item.name, mensagens: item.messages });
     });
 
     return message;
