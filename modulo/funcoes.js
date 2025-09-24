@@ -13,9 +13,17 @@ const message = { status: true, status_code: 200, development: "Tiago Guimarães
 }); */
 
 function listarTodosUsuarios() {
-  message.usuarios = [];
-  dados.contatos["whats-users"].forEach((item) => {
-    message.usuarios.push(item);
-  });
-  return message;
+  try {
+    message.usuarios = [];
+    dados.contatos["whats-users"].forEach((item) => {
+      message.usuarios.push(item);
+    });
+    return message;
+  } catch (error) {
+    return MESSAGE_ERROR;
+  }
 }
+
+module.exports = {
+  listarTodosUsuarios,
+};
