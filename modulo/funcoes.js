@@ -24,6 +24,18 @@ function listarTodosUsuarios() {
   }
 }
 
+function listarDadosDaConta(id) {
+  try {
+    message.dados = [];
+    let usuario = dados.contatos["whats-users"].find((item) => item.id === id);
+    message.dados.push(usuario);
+    return message;
+  } catch (error) {
+    return MESSAGE_ERROR;
+  }
+}
+
 module.exports = {
   listarTodosUsuarios,
+  listarDadosDaConta,
 };
