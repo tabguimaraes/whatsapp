@@ -73,6 +73,8 @@ function listarTodasMensagens(number) {
   }
 }
 
+function listarConversasDeUsuarioComUmContato(number, query) {}
+
 module.exports = {
   listarTodosUsuarios,
   listarDadosDaConta,
