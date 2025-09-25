@@ -73,7 +73,30 @@ function listarTodasMensagens(userNumber) {
   }
 }
 
-function listarConversasDeUsuarioComUmContato(userNumber, query) {}
+function listarConversasDeUsuarioComUmContato(userNumber, query) {
+  selecionarUsuarioPeloTelefone(userNumber);
+
+  let resultado;
+
+  // let mensagemEncontrada = usuario.find((mensagem) => mensagem.content || mensagem.sender === query);
+  let mensagemEncontrada = usuario.contacts;
+
+  console.log(mensagemEncontrada);
+  //retorno do usuario ok
+  // console.log(usuario);
+  // console.log(mensagemEncontrada);
+
+  let historico = {
+    nome: usuario.account,
+    numero: usuario.number,
+    contato: {
+      // nome: "usuario.contacts[query].name,"
+      // messages: usuario.contacts[query].messages,
+    },
+  };
+}
+
+listarConversasDeUsuarioComUmContato("11966578996", "papa");
 
 module.exports = {
   listarTodosUsuarios,
