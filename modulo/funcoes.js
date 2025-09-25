@@ -74,45 +74,46 @@ function listarTodasMensagens(userNumber) {
 }
 
 function listarConversasDeUsuarioComUmContato(userNumber, query) {
-  // supondo que essa função retorna o objeto do usuário certo
-  let usuario = selecionarUsuarioPeloTelefone(userNumber);
+  try {
+    selecionarUsuarioPeloTelefone(userNumber);
 
-  let resultados = [];
+    // Objeto para armazenar os dados de retorno da pesquisa
+    let historico = {
+      nome: usuario.account,
+      numero: usuario.number,
+      conversas: [],
+    };
+    let resultados = [];
 
-  let historico = {
-    nome: usuario.account,
-    numero: usuario.number,
-    conversas: [],
-  };
+    // Método para percorrer os contatos do usuário
+    usuario.contacts.forEach((contato) => {
+      // Pegar só as mensagens que contém o termo que veio da query e normaliza o texto deixando o text em minusculo
+      let msgsEncontradas = contato.messages.filter((msg) => msg.content.toLowerCase().includes(query.toLowerCase()));
 
-  // percorre os contatos do usuário
-  usuario.contacts.forEach((contato) => {
-    // pega só as mensagens que contém o termo
-    let msgsEncontradas = contato.messages.filter((msg) => msg.content.toLowerCase().includes(query.toLowerCase()));
+      if (msgsEncontradas.length > 0) {
+        resultados.push({
+          "nome-contato": contato.name,
+          "numero-contato": contato.number,
+          mensagens: msgsEncontradas,
+        });
+        historico.conversas.push(resultados);
+      } else {
+        return `A pesquisa por "${query}" não retrnou resultados.`;
+      }
+    });
 
-    // se encontrou algo, adiciona ao histórico
-    if (msgsEncontradas.length > 0) {
-      historico.conversas.push({
-        contato: contato.name,
-        numero: contato.number,
-        mensagens: msgsEncontradas,
-      });
-    }
-  });
-
-  resultados.push(historico);
-
-  console.log(historico);
-  console.log(resultados);
-
-  return resultados;
+    return historico;
+  } catch (error) {
+    return MESSAGE_ERROR;
+  }
 }
 
-listarConversasDeUsuarioComUmContato("11966578996", "papa");
+console.log(listarConversasDeUsuarioComUmContato("11966578996", "papa"));
 
 module.exports = {
   listarTodosUsuarios,
   listarDadosDaConta,
   listarDadosDeContato,
   listarTodasMensagens,
+  listarConversasDeUsuarioComUmContato,
 };
