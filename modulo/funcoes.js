@@ -74,26 +74,38 @@ function listarTodasMensagens(userNumber) {
 }
 
 function listarConversasDeUsuarioComUmContato(userNumber, query) {
-  selecionarUsuarioPeloTelefone(userNumber);
+  // supondo que essa função retorna o objeto do usuário certo
+  let usuario = selecionarUsuarioPeloTelefone(userNumber);
 
-  let resultado;
-
-  // let mensagemEncontrada = usuario.find((mensagem) => mensagem.content || mensagem.sender === query);
-  let mensagemEncontrada = usuario.contacts;
-
-  console.log(mensagemEncontrada);
-  //retorno do usuario ok
-  // console.log(usuario);
-  // console.log(mensagemEncontrada);
+  let resultados = [];
 
   let historico = {
     nome: usuario.account,
     numero: usuario.number,
-    contato: {
-      // nome: "usuario.contacts[query].name,"
-      // messages: usuario.contacts[query].messages,
-    },
+    conversas: [],
   };
+
+  // percorre os contatos do usuário
+  usuario.contacts.forEach((contato) => {
+    // pega só as mensagens que contém o termo
+    let msgsEncontradas = contato.messages.filter((msg) => msg.content.toLowerCase().includes(query.toLowerCase()));
+
+    // se encontrou algo, adiciona ao histórico
+    if (msgsEncontradas.length > 0) {
+      historico.conversas.push({
+        contato: contato.name,
+        numero: contato.number,
+        mensagens: msgsEncontradas,
+      });
+    }
+  });
+
+  resultados.push(historico);
+
+  console.log(historico);
+  console.log(resultados);
+
+  return resultados;
 }
 
 listarConversasDeUsuarioComUmContato("11966578996", "papa");
