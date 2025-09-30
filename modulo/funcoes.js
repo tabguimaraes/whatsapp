@@ -73,6 +73,34 @@ function listarTodasMensagens(userNumber) {
   }
 }
 
+function listarConversasComUmContato(userNumber, contactNumber) {
+  try {
+    selecionarUsuarioPeloTelefone(userNumber);
+    // Objeto para armazenar os dados de retorno da pesquisa
+    let historico = {
+        nome: usuario.account,
+        numero: usuario.number,
+        conversas: "",
+      },
+      contato,
+      resultados = {};
+
+    contato = usuario.contacts.find((item) => item.number === contactNumber);
+
+    resultados = {
+      "nome-contato": contato.name,
+      "numero-contato": contato.number,
+      mensagens: contato.messages,
+    };
+    historico.conversas = resultados;
+    message.data.push(historico);
+    console.log(message);
+    return message;
+  } catch (error) {
+    return MESSAGE_ERROR;
+  }
+}
+
 function pesquisarPorPalavraChave(userNumber, query) {
   try {
     selecionarUsuarioPeloTelefone(userNumber);
@@ -113,5 +141,6 @@ module.exports = {
   listarDadosDaConta,
   listarDadosDeContato,
   listarTodasMensagens,
+  listarConversasComUmContato,
   pesquisarPorPalavraChave,
 };
