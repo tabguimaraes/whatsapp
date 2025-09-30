@@ -73,7 +73,7 @@ function listarTodasMensagens(userNumber) {
   }
 }
 
-function listarConversasDeUsuarioComUmContato(userNumber, query) {
+function pesquisarPorPalavraChave(userNumber, query) {
   try {
     selecionarUsuarioPeloTelefone(userNumber);
 
@@ -101,19 +101,17 @@ function listarConversasDeUsuarioComUmContato(userNumber, query) {
         return `A pesquisa por "${query}" não retrnou resultados.`;
       }
     });
-
-    return historico;
+    message.data.push(historico);
+    return message;
   } catch (error) {
     return MESSAGE_ERROR;
   }
 }
-
-console.log(listarConversasDeUsuarioComUmContato("11966578996", "papa"));
 
 module.exports = {
   listarTodosUsuarios,
   listarDadosDaConta,
   listarDadosDeContato,
   listarTodasMensagens,
-  listarConversasDeUsuarioComUmContato,
+  pesquisarPorPalavraChave,
 };
