@@ -25,6 +25,12 @@ app.get("/v1/usuarios", (request, response) => {
   response.status(usuarios.status_code).json(usuarios);
 }); //usar sempre a versão e nome do projeto no endpoint
 
+app.get("/v1/dados/:usuario", (request, response) => {
+  let usuario = request.params.usuario;
+  let status = dados.listarDadosDaConta(usuario);
+  response.status(status.status_code).json(status);
+});
+
 // Start na API
 app.listen(PORT, () => {
   console.log("API aguardando requisições em: http://127.0.0.1:8080/v1/");
