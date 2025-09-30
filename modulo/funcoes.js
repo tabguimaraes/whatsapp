@@ -105,7 +105,6 @@ function pesquisarPorPalavraChave(userNumber, query) {
   try {
     selecionarUsuarioPeloTelefone(userNumber);
 
-    // Objeto para armazenar os dados de retorno da pesquisa
     let historico = {
       nome: usuario.account,
       numero: usuario.number,
@@ -113,9 +112,7 @@ function pesquisarPorPalavraChave(userNumber, query) {
     };
     let resultados = [];
 
-    // Método para percorrer os contatos do usuário
     usuario.contacts.forEach((contato) => {
-      // Pegar só as mensagens que contém o termo que veio da query e normaliza o texto deixando o text em minusculo
       let msgsEncontradas = contato.messages.filter((msg) => msg.content.toLowerCase().includes(query.toLowerCase()));
 
       if (msgsEncontradas.length > 0) {
@@ -124,11 +121,15 @@ function pesquisarPorPalavraChave(userNumber, query) {
           "numero-contato": contato.number,
           mensagens: msgsEncontradas,
         });
-        historico.conversas.push(resultados);
-      } else {
-        return `A pesquisa por "${query}" não retrnou resultados.`;
       }
     });
+
+    if (resultados.length === 0) {
+      MESSAGE_ERROR.mensagem = `A pesquisa por "${query}" não retornou resultados.`;
+      return MESSAGE_ERROR;
+    }
+
+    historico.conversas = resultados;
     message.data.push(historico);
     return message;
   } catch (error) {
