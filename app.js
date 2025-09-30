@@ -28,6 +28,7 @@ app.get("/v1/usuarios", (request, response) => {
 app.get("/v1/usuario/:usuario", (request, response) => {
   let usuario = request.params.usuario,
     status = dados.listarDadosDaConta(usuario);
+  console.log(usuario);
   response.status(status.status_code).json(status);
 });
 

@@ -18,6 +18,7 @@ function selecionarUsuarioPeloTelefone(userNumber) {
 
 function listarTodosUsuarios() {
   try {
+    message.data.length = 0;
     dataJSON.contatos["whats-users"].forEach((item) => {
       message.data.push(item);
     });
@@ -29,6 +30,7 @@ function listarTodosUsuarios() {
 
 function listarDadosDaConta(userNumber) {
   try {
+    message.data.length = 0;
     selecionarUsuarioPeloTelefone(userNumber);
     message.data.push({
       nome: usuario.account,
@@ -48,6 +50,7 @@ function listarDadosDaConta(userNumber) {
 
 function listarDadosDeContato(userNumber) {
   try {
+    message.data.length = 0;
     selecionarUsuarioPeloTelefone(userNumber);
 
     usuario.contacts.forEach((item) => {
@@ -62,6 +65,7 @@ function listarDadosDeContato(userNumber) {
 
 function listarTodasMensagens(userNumber) {
   try {
+    message.data.length = 0;
     selecionarUsuarioPeloTelefone(userNumber);
     usuario.contacts.forEach((item) => {
       message.data.push({ contato: item.name, mensagens: item.messages });
@@ -75,6 +79,7 @@ function listarTodasMensagens(userNumber) {
 
 function listarConversasComUmContato(userNumber, contactNumber) {
   try {
+    message.data.length = 0;
     selecionarUsuarioPeloTelefone(userNumber);
     // Objeto para armazenar os dados de retorno da pesquisa
     let historico = {
@@ -103,6 +108,7 @@ function listarConversasComUmContato(userNumber, contactNumber) {
 
 function pesquisarPorPalavraChave(userNumber, query) {
   try {
+    message.data.length = 0;
     selecionarUsuarioPeloTelefone(userNumber);
 
     let historico = {
