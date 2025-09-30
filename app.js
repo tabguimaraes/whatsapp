@@ -44,16 +44,16 @@ app.get("/v1/mensagens/:usuario", (request, response) => {
   response.status(status.status_code).json(status);
 });
 
-app.get("/v1/busca/mensagens/:usuario/:contato", (request, response) => {
+app.get("/v1/busca/mensagens/:usuario", (request, response) => {
   let usuario = request.params.usuario,
-    contato = request.params.contato,
+    contato = request.query.contato,
     status = dados.listarConversasComUmContato(usuario, contato);
   response.status(status.status_code).json(status);
 });
 
-app.get("/v1/busca/:usuario/:query", (request, response) => {
+app.get("/v1/busca/:usuario", (request, response) => {
   let usuario = request.params.usuario,
-    palavraChave = request.params.query,
+    palavraChave = request.query.query,
     status = dados.pesquisarPorPalavraChave(usuario, palavraChave);
   response.status(status.status_code).json(status);
 });

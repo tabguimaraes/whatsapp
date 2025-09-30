@@ -116,6 +116,8 @@ function pesquisarPorPalavraChave(userNumber, query) {
       numero: usuario.number,
       conversas: [],
     };
+
+    historico.conversas.length = 0;
     let resultados = [];
 
     usuario.contacts.forEach((contato) => {
