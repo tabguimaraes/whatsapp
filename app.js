@@ -43,6 +43,13 @@ app.get("/v1/mensagens/:usuario", (request, response) => {
   response.status(status.status_code).json(status);
 });
 
+app.get("/v1/busca/:usuario/:query", (request, response) => {
+  let usuario = request.params.usuario,
+    palavraChave = request.params.query,
+    status = dados.pesquisarPorPalavraChave(usuario, palavraChave);
+  response.status(status.status_code).json(status);
+});
+
 // Start na API
 app.listen(PORT, () => {
   console.log("API aguardando requisições em: http://127.0.0.1:8080/v1/");
