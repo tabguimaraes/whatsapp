@@ -25,9 +25,15 @@ app.get("/v1/usuarios", (request, response) => {
   response.status(usuarios.status_code).json(usuarios);
 }); //usar sempre a versão e nome do projeto no endpoint
 
-app.get("/v1/dados/:usuario", (request, response) => {
+app.get("/v1/usuario/:usuario", (request, response) => {
   let usuario = request.params.usuario;
   let status = dados.listarDadosDaConta(usuario);
+  response.status(status.status_code).json(status);
+});
+
+app.get("/v1/contato/:contato", (request, response) => {
+  let contato = request.params.contato;
+  let status = dados.listarDadosDeContato(contato);
   response.status(status.status_code).json(status);
 });
 
